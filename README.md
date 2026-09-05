@@ -19,23 +19,24 @@ npm test
 npm start
 ```
 
-The export is in `dist/client`. `npm start` previews that static output. Tests check the exported page, internal navigation, contact and project destinations, metadata, and packaged asset references.
+The export is in `dist/client`. `npm start` previews that static output. Tests check the exported page, internal navigation, contact destination and absence of named projects, metadata, and packaged asset references.
 
 ## Content
 
-- `app/page.tsx`: page structure, services, project descriptions, and illustrative phase portrait.
+- `app/page.tsx`: page structure, services, and concept descriptions.
+- `components/scientific-figures.tsx`: reusable, synthetic scientific SVG illustrations.
 - `app/globals.css`: responsive layout and visual theme.
 - `app/layout.tsx`: document metadata and fonts.
 - `public/favicon.svg`: brand icon.
 
-Company name, services, contact email, and intended domain (`monoon.ai`) were supplied by the company owner. Project summaries are based on these repositories, reviewed September 4, 2026:
+Company name, services, contact email, and intended domain (`monoon.ai`) were supplied by the company owner. Background research used these repositories, reviewed September 4, 2026. The public-facing website deliberately does not name or link to specific projects:
 
 - https://github.com/yongkyuns/imu_gnss_fusion
 - https://github.com/yongkyuns/RustRobotics
 - https://github.com/yongkyuns/stack-algebra
 - https://github.com/yongkyuns/noon
 
-Noon is described as an ongoing exploration, not a released commercial product. The hero figure is a synthetic mathematical illustration, not experimental results or project telemetry.
+The page describes concepts rather than specific products or project roadmaps. The figures are synthetic mathematical illustrations, not experimental results or project telemetry. The radial surface is z = sin(r²) exp(-r² / 3). Its brief line-reveal animation respects reduced-motion preferences.
 
 ## Hosting
 
