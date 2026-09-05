@@ -40,9 +40,18 @@ The page describes concepts rather than specific products or project roadmaps. T
 
 ## Hosting
 
-The static export can be hosted on Cloudflare Pages using `npm run build` and output directory `dist/client`, with the source maintained on GitHub. `.openai/hosting.json` identifies the private Sites review deployment. Public domain setup is separate and has not been applied.
+The primary deployment is GitHub Pages at https://yongkyuns.github.io/MonoonSite/ from the `main` branch of https://github.com/yongkyuns/MonoonSite.
 
-GitHub Pages also supports static files, subject to its commercial-use restrictions. If deployed under a repository subpath, configure that base path and asset URLs before publication; the current export targets a domain root.
+`.github/workflows/pages.yml` installs locked dependencies, builds the static export, checks types and runs the exported-page tests, then publishes `dist/client` using GitHub Actions. It obtains the URL base path from the Pages configuration, so it also supports a future custom domain. The domain `monoon.ai` has not been configured.
+
+To reproduce a project-path build locally:
+
+```sh
+NEXT_PUBLIC_BASE_PATH=/MonoonSite npm run build
+NEXT_PUBLIC_BASE_PATH=/MonoonSite npm test
+```
+
+Without that environment variable the site builds for a domain root. `.openai/hosting.json` retains the identity of the earlier private Sites review deployment; GitHub Pages does not use it. GitHub Pages use remains subject to its commercial-use restrictions.
 
 ## Dependency note
 

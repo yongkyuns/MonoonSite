@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 const output = resolve('dist/client');
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const html = readFileSync(resolve(output, 'index.html'), 'utf8');
 
 test('export contains the company identity and intended scope', () => {
@@ -39,11 +40,17 @@ test('contact stays available without presenting any specific projects', () => {
 test('all exported local script, stylesheet, and font assets exist', () => {
   for (const [, asset] of html.matchAll(
     /(?:src|href)="(\/[^"?#]+)(?:\?[^"#]*)?"/g,
-  ))
+  )) {
     assert.ok(
-      existsSync(resolve(output, `.${asset}`)),
+      asset.startsWith(`${basePath}/`),
+      `Asset escapes the hosting base path: ${asset}`,
+    );
+    const localAsset = asset.slice(basePath.length);
+    assert.ok(
+      existsSync(resolve(output, `.${localAsset}`)),
       `Missing exported asset: ${asset}`,
     );
+  }
 });
 test('metadata and accessible model description survive export', () => {
   assert.match(html, /<html[^>]*lang="en"/);
