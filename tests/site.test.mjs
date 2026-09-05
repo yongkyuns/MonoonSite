@@ -55,7 +55,9 @@ test('all exported local script, stylesheet, and font assets exist', () => {
 test('metadata and accessible model description survive export', () => {
   assert.match(html, /<html[^>]*lang="en"/);
   assert.match(html, /name="description"/);
-  assert.ok(html.includes('ILLUSTRATIVE MODEL'));
+  assert.doesNotMatch(html, /ILLUSTRATIVE MODEL|Position\. Direction\.|Steering inputs\. Understandable/);
+  for (const equation of ['ẋ = v cos ψ', 'ẏ = v sin ψ', 'κ = tan δ / L', 'r = ψ̇ = vκ'])
+    assert.ok(html.includes(equation), `Missing corner equation: ${equation}`);
   assert.ok(html.includes('aria-labelledby="navigation-title navigation-description"'));
 });
 

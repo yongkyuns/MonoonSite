@@ -7,10 +7,6 @@ export function NavigationStudy() {
   const heading = Math.atan2(-155 + 124 * Math.PI * Math.cos(0.62 * Math.PI * 2), 490) * 180 / Math.PI;
   return (
     <figure className="phase-figure">
-      <div className="figure-heading">
-        <span><i className="status-dot" /> NAVIGATION STUDY / 001</span>
-        <span>POSITION / HEADING</span>
-      </div>
       <svg className="phase-plot" viewBox="0 0 640 470" role="img" aria-labelledby="navigation-title navigation-description">
         <title id="navigation-title">Vehicle trajectory and position estimation</title>
         <desc id="navigation-description">A top-down vehicle follows a curved route across a coordinate grid. Discrete GNSS observations surround a continuous illustrative fused trajectory. Ellipses represent position uncertainty, and an arrow indicates vehicle heading. Synthetic geometry, not measured performance.</desc>
@@ -34,7 +30,8 @@ export function NavigationStudy() {
           <path d="M8 -10L15 -8V8L8 10Z M-15 -10V10 M-21 -17H-10 M12 -17H22 M-21 17H-10 M12 17H22" fill="none" stroke="#a1bdb7" strokeWidth="2" />
         </g>
         <g fill="#b4cac5" fontSize="13">
-          <text x="36" y="42">LOCAL NAVIGATION FRAME</text>
+          <text x="602" y="38" textAnchor="end" fontSize="16">ẋ = v cos ψ</text>
+          <text x="602" y="63" textAnchor="end" fontSize="16">ẏ = v sin ψ</text>
           <path d="M48 130V70M48 130H108" stroke="#a1bdb7" fill="none" />
           <text x="40" y="61">N</text><text x="119" y="135">E</text>
           <path d="M410 272L443 305H563" stroke="#a1bdb7" fill="none" />
@@ -43,7 +40,6 @@ export function NavigationStudy() {
           <path d="M270 411H297" stroke="#ff9c74" strokeWidth="2" /><text x="307" y="416">fused trajectory</text>
         </g>
       </svg>
-      <figcaption><span>Position. Direction. A path forward.</span><span>ILLUSTRATIVE MODEL</span></figcaption>
     </figure>
   );
 }
@@ -154,14 +150,15 @@ export function SignalStudy({ kind }: { kind: number }) {
   );
 }
 
-/** Plan-view bicycle-model schematic: conceptual geometry, not a calibrated model. */
+/** No-slip, rear-axle bicycle kinematics; conceptual geometry, not calibrated.
+ * Equations: https://www.mathworks.com/help/robotics/ug/mobile-robot-kinematics-equations.html
+ */
 export function VehicleDynamicsStudy() {
   return (
     <figure className="surface-figure">
-      <div className="surface-heading"><span className="eyebrow">FROM STEERING TO MOTION</span><span className="surface-index">FIG. 02</span></div>
       <svg className="surface-plot" viewBox="0 0 620 490" role="img" aria-labelledby="dynamics-title dynamics-description">
         <title id="dynamics-title">Vehicle dynamics and steering geometry</title>
-        <desc id="dynamics-description">A plan-view bicycle-model schematic shows rear and steered front wheels, wheelbase L, forward velocity v, steering angle delta, and yaw rate r. A curved predicted path connects steering input to vehicle motion. Illustrative geometry, not to scale.</desc>
+        <desc id="dynamics-description">A plan-view bicycle-model schematic shows rear and steered front wheels, wheelbase L, rear-axle forward velocity v, steering angle delta, and yaw rate r. A curved predicted path connects steering input to vehicle motion. Illustrative geometry, not to scale.</desc>
         <defs>
           <pattern id="dynamics-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#7db7a7" strokeOpacity=".12" /></pattern>
           <marker id="dynamics-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L7 3L0 6" fill="none" stroke="#ff9c74" /></marker>
@@ -176,18 +173,18 @@ export function VehicleDynamicsStudy() {
         <g transform="rotate(-28 345 330)"><rect x="321" y="322" width="48" height="16" rx="3" fill="#142d31" stroke="#eff5f3" strokeWidth="2" /><path d="M375 330H414" stroke="#ff9c74" markerEnd="url(#dynamics-arrow)" /></g>
         <circle cx="260" cy="330" r="5" fill="#ff9c74" />
         <path d="M260 315V251 M260 251L256 259M260 251L264 259" stroke="#a1bdb7" fill="none" />
-        <path d="M263 303H319" stroke="#ff9c74" markerEnd="url(#dynamics-arrow)" />
+        <path d="M175 303H231" stroke="#ff9c74" markerEnd="url(#dynamics-arrow)" />
         <path d="M392 330A47 47 0 0 0 386.5 308" stroke="#ff9c74" fill="none" />
         <path d="M221 268A47 47 0 0 1 291 247" stroke="#ff9c74" fill="none" markerEnd="url(#dynamics-arrow)" />
         <path d="M175 398V418M345 398V418M175 408H345" stroke="#a1bdb7" />
         <g fill="#b4cac5" fontSize="14" fontFamily="var(--font-geist-mono), monospace">
-          <text x="30" y="35">PLAN VIEW / BICYCLE MODEL</text>
-          <text x="401" y="321">δ</text><text x="285" y="293">v</text><text x="246" y="233">yaw rate r</text>
+          <text x="30" y="35" fontSize="16">κ = tan δ / L</text>
+          <text x="30" y="61" fontSize="16">r = ψ̇ = vκ</text>
+          <text x="401" y="321">δ</text><text x="197" y="293">v</text><text x="246" y="233">yaw rate r</text>
           <text x="211" y="441">wheelbase L</text><text x="430" y="168">predicted</text><text x="430" y="189">motion</text>
           <text x="145" y="368">rear</text><text x="324" y="368">front</text>
         </g>
       </svg>
-      <figcaption><span>Steering inputs. Understandable motion.</span><span>ILLUSTRATIVE MODEL</span></figcaption>
     </figure>
   );
 }
