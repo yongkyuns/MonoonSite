@@ -9,21 +9,21 @@ import {
 const capabilities = [
   {
     number: '01',
-    title: 'Sense & estimate',
-    detail: 'Find the state behind the signals.',
-    text: 'Sensor fusion, inertial navigation, and state estimation. Connecting IMU and GNSS measurements to useful models of motion.',
+    title: 'Explore & frame',
+    detail: 'Find a better way into the problem.',
+    text: 'Question assumptions, connect ideas across disciplines, and turn open-ended challenges into useful experiments. Models and prototypes help us discover what is worth building.',
   },
   {
     number: '02',
-    title: 'Model & control',
-    detail: 'Connect the model to the machine.',
-    text: 'Dynamic systems, control algorithms, and simulation. Software grounded in the constraints of automotive and embedded engineering.',
+    title: 'Engineer & communicate',
+    detail: 'Make the solution—and the reasoning—clear.',
+    text: 'Develop algorithms, architecture, and software through simulation, testing, and iteration. Use visualization and technical explanation to make decisions understandable and the work reproducible.',
   },
   {
     number: '03',
-    title: 'Visualize & explain',
-    detail: 'Make the behavior visible.',
-    text: 'Data visualization, interactive tools, and educational software. Helping people inspect results, test ideas, and understand complex systems.',
+    title: 'Deliver & scale',
+    detail: 'Carry the idea into production.',
+    text: 'Translate prototypes into maintainable systems. Address integration, performance, validation, and deployment so the solution can operate reliably at production scale.',
   },
 ];
 
@@ -41,8 +41,8 @@ export default function Home() {
           Monoon<span className="brand-ai">AI</span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#expertise">Expertise</a>
-          <a href="#concepts">Ideas & approach</a>
+          <a href="#expertise">What we do</a>
+          <a href="#concepts">Our approach</a>
           <a className="nav-contact" href="#contact">
             Let’s talk <ArrowUpRight size={16} />
           </a>
@@ -54,26 +54,29 @@ export default function Home() {
           <section className="hero wrap" aria-labelledby="hero-title">
             <div className="hero-copy">
               <p className="eyebrow">
-                <span className="small-line" /> SOFTWARE & SYSTEMS ENGINEERING
+                <span className="small-line" /> CREATIVE THINKING. ENGINEERING
+                RIGOR.
               </p>
               <h1 id="hero-title">
-                Software for
+                Creative ideas.
                 <br />
-                understanding
+                Clear engineering.
                 <br />
-                <span>complex systems.</span>
+                <span>Built for production.</span>
               </h1>
               <p className="hero-description">
-                We connect sensing, simulation, and visualization to help people
-                build, explore, and understand the systems around them.
+                We solve complex engineering problems and make the thinking
+                behind them clear. From the first idea through development to
+                execution at scale, we connect creative exploration with
+                practical delivery.
               </p>
               <a className="primary-link" href="#concepts">
-                Explore the ideas <ArrowDown size={18} />
+                Discover our approach <ArrowDown size={18} />
               </a>
               <p className="hero-footnote">
                 Grounded in automotive & embedded engineering.
                 <br />
-                Built with room to explore.
+                From first principles to production.
               </p>
             </div>
             <PhasePortrait />
@@ -94,17 +97,18 @@ export default function Home() {
           aria-labelledby="expertise-title"
         >
           <div className="section-intro">
-            <p className="eyebrow">01 / OUR EXPERTISE</p>
+            <p className="eyebrow">01 / FROM IDEA TO EXECUTION</p>
             <div>
               <h2 id="expertise-title">
-                Rigorous engineering.
+                From the first question.
                 <br />
-                <span>A wider field of view.</span>
+                <span>To production at scale.</span>
               </h2>
               <p>
-                We provide professional software and systems development
-                services, from the mathematics beneath an algorithm to the tools
-                that make its behavior clear.
+                We provide software and systems engineering services across the
+                development journey. Creative problem-solving shapes the
+                direction; a disciplined engineering process turns it into
+                something that works. Clear communication connects every step.
               </p>
             </div>
           </div>
@@ -114,11 +118,7 @@ export default function Home() {
                 <div className="capability-top">
                   <span className="index">/{item.number}</span>
                   <span className="coordinate-label">
-                    {
-                      ['OBSERVE', 'EXPERIMENT', 'UNDERSTAND'][
-                        Number(item.number) - 1
-                      ]
-                    }
+                    {['IDEA', 'PROCESS', 'PRODUCTION'][Number(item.number) - 1]}
                   </span>
                 </div>
                 <SignalStudy kind={Number(item.number) - 1} />
@@ -137,60 +137,68 @@ export default function Home() {
           <div className="wrap section">
             <div className="concepts-heading">
               <div>
-                <p className="eyebrow">02 / IDEAS & APPROACH</p>
+                <p className="eyebrow">02 / HOW WE THINK & BUILD</p>
                 <h2 id="concepts-title">
-                  A space between
+                  Good engineering makes
                   <br />
-                  <span>theory and possibility.</span>
+                  <span>its thinking visible.</span>
                 </h2>
               </div>
               <p>
-                Mathematical foundations. Physical intuition.
+                Better questions. Shared understanding.
                 <br />
-                Software that connects the two.
+                Ideas that hold up in practice.
               </p>
             </div>
             <div className="concepts-layout">
               <ConceptSurface />
               <div className="concept-list">
                 <article>
-                  <span className="index">01 / SIMULATION & MODELLING</span>
-                  <h3>Explore before you build.</h3>
+                  <span className="index">01 / CREATIVE PROBLEM-SOLVING</span>
+                  <h3>Find the possibilities in the constraints.</h3>
                   <p>
-                    Turn physical behavior into models you can question.
-                    Simulate motion, experiment with control, and explore how a
-                    system responds when its conditions change.
+                    A difficult engineering problem rarely arrives with a clear
+                    path forward. We combine mathematical modelling, physical
+                    intuition, and simulation to explore alternatives and test
+                    assumptions before committing to a solution.
                   </p>
                 </article>
                 <article>
-                  <span className="index">02 / DATA & VISUAL EXPLANATION</span>
-                  <h3>See what the numbers mean.</h3>
+                  <span className="index">
+                    02 / EFFECTIVE TECHNICAL COMMUNICATION
+                  </span>
+                  <h3>Make the reasoning something people can see.</h3>
                   <p>
-                    Give signals, uncertainty, and abstract relationships a
-                    visual form. Use geometry, animation, and data visualization
-                    to make patterns and behavior easier to reason about.
+                    An idea becomes more useful when others can understand and
+                    challenge it. Data visualization, interactive
+                    demonstrations, and clear documentation make complex
+                    behavior, tradeoffs, and evidence accessible to the people
+                    making decisions.
                   </p>
                 </article>
                 <article>
-                  <span className="index">03 / ROBOTICS & LEARNING</span>
-                  <h3>Make understanding hands-on.</h3>
+                  <span className="index">
+                    03 / PRODUCTION & CONTINUOUS LEARNING
+                  </span>
+                  <h3>Keep the intent intact through execution.</h3>
                   <p>
-                    Connect algorithms to things that move. Interactive
-                    experiments make sensing, planning, and control tangible—for
-                    engineering, education, and the next question worth
-                    exploring.
+                    The engineering process must connect an elegant concept to
+                    the realities of deployment. We bring implementation,
+                    validation, and operational feedback into the same
+                    conversation, so systems can evolve as demands and scale
+                    grow.
                   </p>
                 </article>
               </div>
             </div>
             <div className="concepts-footer">
-              <span>OBSERVE</span>
+              <span>IDEA</span>
               <i aria-hidden="true" />
-              <span>MODEL</span>
+              <span>ENGINEER</span>
               <i aria-hidden="true" />
-              <span>EXPERIMENT</span>
+              <span>COMMUNICATE</span>
               <i aria-hidden="true" />
-              <span>UNDERSTAND</span>
+              <span>DELIVER</span>
             </div>
           </div>
         </section>
@@ -202,14 +210,14 @@ export default function Home() {
           <div>
             <p className="eyebrow">03 / WORK WITH US</p>
             <h2 id="contact-title">
-              Let’s work through
+              Bring us the problem.
               <br />
-              the interesting problems.
+              Let’s build what comes next.
             </h2>
             <p>
-              Have a system to develop, an idea to test,
+              An idea to explore, a challenge to explain,
               <br />
-              or something complex to make clear?
+              or a system ready for its next stage?
             </p>
           </div>
           <a className="contact-link" href="mailto:yongkyun.shin@monoon.ai">
@@ -223,7 +231,7 @@ export default function Home() {
         <a className="wordmark" href="#">
           Monoon<span className="brand-ai">AI</span>
         </a>
-        <span>Software. Systems. Understanding.</span>
+        <span>Imagine. Engineer. Deliver.</span>
         <span>© {new Date().getUTCFullYear()} MonoonAI</span>
       </footer>
     </>

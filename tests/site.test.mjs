@@ -9,10 +9,10 @@ const html = readFileSync(resolve(output, 'index.html'), 'utf8');
 test('export contains the company identity and intended scope', () => {
   for (const text of [
     'MonoonAI',
-    'Sense &amp; estimate',
-    'Model &amp; control',
-    'Visualize &amp; explain',
-    'IDEAS &amp; APPROACH',
+    'Explore &amp; frame',
+    'Engineer &amp; communicate',
+    'Deliver &amp; scale',
+    'FROM IDEA TO EXECUTION',
   ])
     assert.ok(html.includes(text), `Missing content: ${text}`);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);

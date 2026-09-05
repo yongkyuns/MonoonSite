@@ -1,6 +1,6 @@
 # MonoonAI
 
-A static company website for MonoonAI, focused on sensing, controls, simulation, visualization, and embedded systems engineering. Built with React and Vinext; the published output requires no application server or database.
+A static company website for MonoonAI, focused on creative engineering problem-solving and effective technical communication, from initial ideas through a disciplined engineering process to production at scale. Sensing, controls, simulation, visualization, and embedded systems provide the technical context. Built with React and Vinext; the published output requires no application server or database.
 
 ## Development
 

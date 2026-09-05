@@ -6,9 +6,9 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
-const title = 'MonoonAI — Software & Systems Engineering';
+const title = 'MonoonAI — Creative Engineering, From Idea to Production';
 const description =
-  'Software for understanding complex systems. MonoonAI develops sensor fusion, controls, simulation, and visualization tools, grounded in automotive and embedded engineering.';
+  'Creative problem-solving, rigorous software and systems engineering, and clear technical communication. MonoonAI takes ideas through development to production at scale.';
 export const metadata: Metadata = {
   title,
   description,
