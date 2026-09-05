@@ -1,8 +1,8 @@
 import { ArrowDown, ArrowUpRight, MoveUpRight } from 'lucide-react';
 import {
-  PhasePortrait,
+  NavigationStudy,
   CoordinateField,
-  ConceptSurface,
+  VehicleDynamicsStudy,
   SignalStudy,
 } from '@/components/scientific-figures';
 
@@ -76,7 +76,7 @@ export default function Home() {
                 From first principles to production.
               </p>
             </div>
-            <PhasePortrait />
+            <NavigationStudy />
           </section>
         </div>
         <div className="discipline-strip">
@@ -148,7 +148,7 @@ export default function Home() {
               </p>
             </div>
             <div className="concepts-layout">
-              <ConceptSurface />
+              <VehicleDynamicsStudy />
               <div className="concept-list">
                 <article>
                   <span className="index">01 / CREATIVE PROBLEM-SOLVING</span>

@@ -1,107 +1,49 @@
-/** An illustrative damped oscillator phase portrait, not recorded project data. */
-export function PhasePortrait() {
-  const paths = Array.from({ length: 12 }, (_, i) => {
-    const angle = (i * Math.PI) / 6;
-    return Array.from({ length: 180 }, (_, step) => {
-      const t = step / 22;
-      const radius = 180 * Math.exp(-t * 0.27);
-      const x = 320 + radius * Math.cos(t * 1.75 + angle);
-      const velocity =
-        radius *
-        (-0.27 * Math.cos(t * 1.75 + angle) -
-          1.75 * Math.sin(t * 1.75 + angle));
-      const y = 244 - velocity * 0.5;
-      return `${step === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`;
-    }).join(' ');
-  });
+/** Synthetic navigation geometry, sampled at build time; not recorded telemetry. */
+export function NavigationStudy() {
+  const route = (t: number): readonly [number, number] => [
+    70 + 490 * t, 320 - 155 * t + 62 * Math.sin(t * Math.PI * 2),
+  ];
+  const pose = route(0.62);
+  const heading = Math.atan2(-155 + 124 * Math.PI * Math.cos(0.62 * Math.PI * 2), 490) * 180 / Math.PI;
   return (
     <figure className="phase-figure">
       <div className="figure-heading">
-        <span>
-          <i className="status-dot" /> SYSTEM STUDY / 001
-        </span>
-        <span>STATE SPACE</span>
+        <span><i className="status-dot" /> NAVIGATION STUDY / 001</span>
+        <span>POSITION / HEADING</span>
       </div>
-      <svg
-        className="phase-plot"
-        viewBox="0 0 640 470"
-        role="img"
-        aria-labelledby="phase-title phase-description"
-      >
-        <title id="phase-title">A system finding equilibrium</title>
-        <desc id="phase-description">
-          An illustrative phase portrait of a damped oscillator. Twelve
-          trajectories spiral toward a common equilibrium.
-        </desc>
+      <svg className="phase-plot" viewBox="0 0 640 470" role="img" aria-labelledby="navigation-title navigation-description">
+        <title id="navigation-title">Vehicle trajectory and position estimation</title>
+        <desc id="navigation-description">A top-down vehicle follows a curved route across a coordinate grid. Discrete GNSS observations surround a continuous illustrative fused trajectory. Ellipses represent position uncertainty, and an arrow indicates vehicle heading. Synthetic geometry, not measured performance.</desc>
         <defs>
-          <pattern
-            id="grid"
-            width="40"
-            height="40"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 40 0 L 0 0 0 40"
-              fill="none"
-              stroke="#ffffff"
-              strokeOpacity="0.07"
-            />
+          <pattern id="navigation-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" stroke="#a1bdb7" strokeOpacity=".12" />
           </pattern>
+          <marker id="navigation-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ff9c74" /></marker>
         </defs>
-        <rect x="0" y="0" width="640" height="470" fill="url(#grid)" />
-        <path
-          d="M40 244H600 M320 25V445"
-          stroke="#819494"
-          strokeOpacity=".4"
-          strokeDasharray="3 6"
-        />
-        {[50, 100, 150, 200].map((r) => (
-          <ellipse
-            key={r}
-            cx="320"
-            cy="244"
-            rx={r}
-            ry={r * 0.7}
-            fill="none"
-            stroke="#7e9c9b"
-            strokeOpacity=".12"
-          />
-        ))}
-        {paths.map((d, i) => (
-          <path
-            className="trajectory"
-            key={i}
-            d={d}
-            fill="none"
-            stroke={i === 1 ? '#ff805e' : '#8abbb8'}
-            strokeOpacity={i === 1 ? 1 : 0.2 + i * 0.035}
-            strokeWidth={i === 1 ? 2.5 : 1.15}
-          />
-        ))}
-        <circle cx="320" cy="244" r="4" fill="#ff805e" />
-        <path
-          d="M327 236L373 190H450"
-          fill="none"
-          stroke="#ff805e"
-          strokeOpacity=".7"
-        />
-        <text x="383" y="179" fill="#ffb39c" fontSize="13">
-          equilibrium
-        </text>
-        <text x="586" y="266" fill="#a8bbbb" fontSize="14">
-          x
-        </text>
-        <text x="333" y="36" fill="#a8bbbb" fontSize="14">
-          ẋ
-        </text>
-        <text x="32" y="435" fill="#a8bbbb" fontSize="12">
-          ẍ + 2ζωₙẋ + ωₙ²x = 0
-        </text>
+        <rect width="640" height="470" fill="url(#navigation-grid)" />
+        <g fill="none" stroke="#7db7a7">
+          {[-34, 34].map((offset) => <path key={offset} strokeOpacity=".25" strokeWidth="1" d={curve(140, (t) => { const [x,y] = route(t); return [x,y+offset]; })} />)}
+          <path strokeOpacity=".45" strokeDasharray="5 7" d={curve(140, route)} />
+          {[0.18,0.4,0.62,0.85].map((t) => { const [x,y]=route(t); return <ellipse key={t} cx={x} cy={y} rx="29" ry="17" transform={`rotate(-28 ${x} ${y})`} strokeOpacity=".55" />; })}
+        </g>
+        {Array.from({length: 22}, (_,i) => { const t=i/21; const [x,y]=route(t); return <circle key={i} cx={x+Math.sin(i*7)*9} cy={y+Math.cos(i*4)*14} r="3.5" fill="#142d31" stroke="#a1bdb7" strokeWidth="1.4" />; })}
+        <path d={curve(140, route)} fill="none" stroke="#ff9c74" strokeWidth="2.5" />
+        <g transform={`translate(${pose[0]} ${pose[1]}) rotate(${heading})`}>
+          <path d="M-5 0H78" stroke="#ff9c74" strokeWidth="1.5" markerEnd="url(#navigation-arrow)" />
+          <rect x="-28" y="-14" width="56" height="28" rx="8" fill="#19383c" stroke="#eff5f3" strokeWidth="1.8" />
+          <path d="M8 -10L15 -8V8L8 10Z M-15 -10V10 M-21 -17H-10 M12 -17H22 M-21 17H-10 M12 17H22" fill="none" stroke="#a1bdb7" strokeWidth="2" />
+        </g>
+        <g fill="#b4cac5" fontSize="13">
+          <text x="36" y="42">LOCAL NAVIGATION FRAME</text>
+          <path d="M48 130V70M48 130H108" stroke="#a1bdb7" fill="none" />
+          <text x="40" y="61">N</text><text x="119" y="135">E</text>
+          <path d="M410 272L443 305H563" stroke="#a1bdb7" fill="none" />
+          <text x="450" y="325">vehicle pose</text>
+          <circle cx="42" cy="411" r="3.5" fill="none" stroke="#a1bdb7" /><text x="55" y="416">GNSS observations</text>
+          <path d="M270 411H297" stroke="#ff9c74" strokeWidth="2" /><text x="307" y="416">fused trajectory</text>
+        </g>
       </svg>
-      <figcaption>
-        <span>From motion to understanding.</span>
-        <span>ILLUSTRATIVE MODEL</span>
-      </figcaption>
+      <figcaption><span>Position. Direction. A path forward.</span><span>ILLUSTRATIVE MODEL</span></figcaption>
     </figure>
   );
 }
@@ -149,7 +91,7 @@ export function CoordinateField() {
   );
 }
 
-/** Small synthetic studies illustrating signals, response, and wave superposition. */
+/** Synthetic position estimates, steering response, and lane-change candidates. */
 export function SignalStudy({ kind }: { kind: number }) {
   const smooth = (t: number) => Math.sin(t * Math.PI * 3) * 24;
   return (
@@ -163,6 +105,7 @@ export function SignalStudy({ kind }: { kind: number }) {
         className="study-axis"
         d="M10 60H330 M10 20V100 M90 20V100 M170 20V100 M250 20V100 M330 20V100"
       />
+      <text x="14" y="14" fill="var(--muted)" fontSize="11">{['POSITION ESTIMATION', 'STEERING RESPONSE', 'TRAJECTORY CANDIDATES'][kind]}</text>
       {kind === 0 && (
         <>
           <path
@@ -203,10 +146,7 @@ export function SignalStudy({ kind }: { kind: number }) {
             opacity={i === 2 ? 1 : 0.5}
             d={curve(120, (t) => [
               10 + t * 320,
-              60 +
-                Math.sin(t * Math.PI * 4 + i * 0.45) *
-                  30 *
-                  Math.sin(t * Math.PI),
+              90 - (35 + i * 9) * (3 * t * t - 2 * t * t * t),
             ])}
           />
         ))}
@@ -214,82 +154,40 @@ export function SignalStudy({ kind }: { kind: number }) {
   );
 }
 
-/** A projected analytic surface z = sin(r²) exp(-r² / 3), not measured data. */
-export function ConceptSurface() {
-  const project = (u: number, v: number): readonly [number, number] => {
-    const r2 = u * u + v * v;
-    const z = Math.sin(r2) * Math.exp(-r2 / 3);
-    return [310 + (u - v) * 58, 246 + (u + v) * 28 - z * 110];
-  };
+/** Plan-view bicycle-model schematic: conceptual geometry, not a calibrated model. */
+export function VehicleDynamicsStudy() {
   return (
     <figure className="surface-figure">
-      <div className="surface-heading">
-        <span className="eyebrow">THE SHAPE OF AN IDEA</span>
-        <span className="surface-index">FIG. 02</span>
-      </div>
-      <svg
-        className="surface-plot"
-        viewBox="0 0 620 490"
-        role="img"
-        aria-labelledby="surface-title surface-description"
-      >
-        <title id="surface-title">
-          A mathematical model rendered as a three-dimensional wireframe
-        </title>
-        <desc id="surface-description">
-          An illustrative radial wave surface. A grid of teal curves rises and
-          falls around the center, with an orange cross-section showing one
-          slice of the model.
-        </desc>
+      <div className="surface-heading"><span className="eyebrow">FROM STEERING TO MOTION</span><span className="surface-index">FIG. 02</span></div>
+      <svg className="surface-plot" viewBox="0 0 620 490" role="img" aria-labelledby="dynamics-title dynamics-description">
+        <title id="dynamics-title">Vehicle dynamics and steering geometry</title>
+        <desc id="dynamics-description">A plan-view bicycle-model schematic shows rear and steered front wheels, wheelbase L, forward velocity v, steering angle delta, and yaw rate r. A curved predicted path connects steering input to vehicle motion. Illustrative geometry, not to scale.</desc>
         <defs>
-          <radialGradient id="surface-glow">
-            <stop stopColor="#45877d" stopOpacity=".22" />
-            <stop offset="1" stopColor="#45877d" stopOpacity="0" />
-          </radialGradient>
+          <pattern id="dynamics-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#7db7a7" strokeOpacity=".12" /></pattern>
+          <marker id="dynamics-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L7 3L0 6" fill="none" stroke="#ff9c74" /></marker>
         </defs>
-        <ellipse
-          cx="310"
-          cy="255"
-          rx="285"
-          ry="210"
-          fill="url(#surface-glow)"
-        />
-        <g className="surface-grid">
-          {Array.from({ length: 25 }, (_, i) => {
-            const k = -2.3 + (i * 4.6) / 24;
-            return (
-              <g key={i}>
-                <path d={curve(90, (t) => project(k, -2.3 + t * 4.6))} />
-                <path d={curve(90, (t) => project(-2.3 + t * 4.6, k))} />
-              </g>
-            );
-          })}
+        <rect x="15" y="55" width="590" height="360" fill="url(#dynamics-grid)" />
+        <path d="M80 330C250 330 355 330 440 224S510 94 568 75" fill="none" stroke="#7db7a7" strokeWidth="40" strokeOpacity=".07" />
+        <path d="M80 330C250 330 355 330 440 224S510 94 568 75" fill="none" stroke="#ff9c74" strokeWidth="2" strokeDasharray="6 7" />
+        <rect x="130" y="278" width="258" height="104" rx="32" fill="#19383c" fillOpacity=".85" stroke="#7db7a7" strokeOpacity=".5" />
+        <path d="M110 330H430 M175 267V390 M345 257V390" fill="none" stroke="#a1bdb7" strokeOpacity=".55" strokeDasharray="4 6" />
+        <path d="M175 330H345" stroke="#a1bdb7" strokeWidth="2" />
+        <rect x="151" y="322" width="48" height="16" rx="3" fill="#142d31" stroke="#eff5f3" strokeWidth="2" />
+        <g transform="rotate(-28 345 330)"><rect x="321" y="322" width="48" height="16" rx="3" fill="#142d31" stroke="#eff5f3" strokeWidth="2" /><path d="M375 330H414" stroke="#ff9c74" markerEnd="url(#dynamics-arrow)" /></g>
+        <circle cx="260" cy="330" r="5" fill="#ff9c74" />
+        <path d="M260 315V251 M260 251L256 259M260 251L264 259" stroke="#a1bdb7" fill="none" />
+        <path d="M263 303H319" stroke="#ff9c74" markerEnd="url(#dynamics-arrow)" />
+        <path d="M392 330A47 47 0 0 0 386.5 308" stroke="#ff9c74" fill="none" />
+        <path d="M221 268A47 47 0 0 1 291 247" stroke="#ff9c74" fill="none" markerEnd="url(#dynamics-arrow)" />
+        <path d="M175 398V418M345 398V418M175 408H345" stroke="#a1bdb7" />
+        <g fill="#b4cac5" fontSize="14" fontFamily="var(--font-geist-mono), monospace">
+          <text x="30" y="35">PLAN VIEW / BICYCLE MODEL</text>
+          <text x="401" y="321">δ</text><text x="285" y="293">v</text><text x="246" y="233">yaw rate r</text>
+          <text x="211" y="441">wheelbase L</text><text x="430" y="168">predicted</text><text x="430" y="189">motion</text>
+          <text x="145" y="368">rear</text><text x="324" y="368">front</text>
         </g>
-        <path
-          className="surface-section"
-          pathLength="1"
-          d={curve(120, (t) => project(-2.3 + t * 4.6, 0))}
-        />
-        <g className="surface-axes">
-          <path d="M310 448l250 -122 M310 448L60 326 M310 448V396" />
-          <text x="563" y="324">
-            x
-          </text>
-          <text x="46" y="324">
-            y
-          </text>
-          <text x="305" y="385">
-            z
-          </text>
-        </g>
-        <text className="surface-equation" x="26" y="40">
-          z = sin(r²) · e⁻ʳ²/³
-        </text>
       </svg>
-      <figcaption>
-        <span>Abstract relationships. Visible behavior.</span>
-        <span>ILLUSTRATIVE MODEL</span>
-      </figcaption>
+      <figcaption><span>Steering inputs. Understandable motion.</span><span>ILLUSTRATIVE MODEL</span></figcaption>
     </figure>
   );
 }

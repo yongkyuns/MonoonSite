@@ -56,7 +56,7 @@ test('metadata and accessible model description survive export', () => {
   assert.match(html, /<html[^>]*lang="en"/);
   assert.match(html, /name="description"/);
   assert.ok(html.includes('ILLUSTRATIVE MODEL'));
-  assert.ok(html.includes('aria-labelledby="phase-title phase-description"'));
+  assert.ok(html.includes('aria-labelledby="navigation-title navigation-description"'));
 });
 
 test('scientific figures have unique IDs and valid accessible descriptions', () => {
@@ -66,6 +66,10 @@ test('scientific figures have unique IDs and valid accessible descriptions', () 
     for (const name of names.split(' '))
       assert.ok(ids.includes(name), `Missing accessible label: ${name}`);
   }
-  assert.ok(html.includes('surface-description'));
+  for (const [, id] of html.matchAll(/url\(#([^)]+)\)/g))
+    assert.ok(ids.includes(id), `Missing SVG marker or pattern: ${id}`);
+  assert.ok(html.includes('dynamics-description'));
+  assert.ok(html.includes('Vehicle trajectory and position estimation'));
+  assert.ok(html.includes('Vehicle dynamics and steering geometry'));
   assert.doesNotMatch(html, /(?:NaN|Infinity)/);
 });
