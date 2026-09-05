@@ -35,9 +35,6 @@ export default function Home() {
       </a>
       <header className="site-header wrap">
         <a className="wordmark" href="#" aria-label="MonoonAI home">
-          <span className="brand-symbol" aria-hidden="true">
-            m.
-          </span>
           Monoon<span className="brand-ai">AI</span>
         </a>
         <nav aria-label="Main navigation">

@@ -80,19 +80,6 @@ p {
   font-weight: 400;
   color: var(--muted);
 }
-.brand-symbol {
-  display: grid;
-  place-items: center;
-  width: 35px;
-  height: 35px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  font-size: 25px;
-  margin-right: 11px;
-  border-radius: 4px;
-  padding-bottom: 5px;
-}
 .site-header nav {
   display: flex;
   align-items: center;
@@ -656,11 +643,6 @@ h2 span {
   .wordmark {
     font-size: 22px;
   }
-  .brand-symbol {
-    width: 30px;
-    height: 30px;
-    margin-right: 7px;
-  }
   .hero {
     grid-template-columns: 1fr;
     gap: 35px;
@@ -743,9 +725,6 @@ h2 span {
   .site-header nav {
     gap: 12px;
     font-size: 12px;
-  }
-  .brand-symbol {
-    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {

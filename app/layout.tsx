@@ -12,7 +12,6 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon.svg` },
   openGraph: { title, description, type: 'website' },
   twitter: { card: 'summary', title, description },
 };
